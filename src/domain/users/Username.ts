@@ -3,7 +3,11 @@
 export default class username {
 	private username:string|null = null;
 
-	constructor(username:string) {
+	constructor(username:string, required:boolean) {
+		if (!required) {
+			return;
+		}
+
 		this.setUsername(username)
 	}
 

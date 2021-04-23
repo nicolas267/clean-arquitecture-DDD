@@ -17,12 +17,12 @@ export default class UserEntity
 
 	private objectError:object = {};
 
-	constructor(data:Array<any>){
+	constructor(data:Array<any>, required: {[key: string]: boolean}){
 		try{
-			this.email 			= new email(data["email"]);
-			this.name 			= new name(data["name"]);
-			this.username 		= new username(data["username"]);
-			this.password 		= new password(data["password"]);
+			this.email 			= new email(data["email"], required.email);
+			this.name 			= new name(data["name"], required.name);
+			this.username 		= new username(data["username"], required.username);
+			this.password 		= new password(data["password"], required.password);
 		} catch(err) {
 			this.error = true;
 			this.objectError = err;

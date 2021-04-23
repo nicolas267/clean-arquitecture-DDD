@@ -1,7 +1,11 @@
 export default class Password {
 	private password:string|null = null;
 
-	constructor(password:string) {
+	constructor(password:string, required:boolean) {
+		if (!required) {
+			return;
+		}
+
 		this.setPassword(password)
 	}
 

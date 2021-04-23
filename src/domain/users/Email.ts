@@ -3,7 +3,11 @@
 export default class Email {
 	private email:string|null = null;
 
-	constructor(email:string) {
+	constructor(email:string, required:boolean) {
+		if (!required) {
+			return;
+		}
+		
 		this.setEmail(email)
 	}
 
@@ -18,7 +22,7 @@ export default class Email {
 			throw {
 				"error": true,
 				"code": 400,
-				"message": "El usuario debe ser solo alfanúmerico"
+				"message": "Debe utilizar un email válido"
 			};
 		} 
 
