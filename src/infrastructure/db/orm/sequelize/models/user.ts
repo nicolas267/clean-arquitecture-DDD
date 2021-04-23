@@ -3,14 +3,8 @@ import {
   Model,
   ModelDefined,
   DataTypes,
-  HasManyGetAssociationsMixin,
-  HasManyAddAssociationMixin,
-  HasManyHasAssociationMixin,
-  Association,
-  HasManyCountAssociationsMixin,
-  HasManyCreateAssociationMixin,
-  Optional,
 } from "sequelize";
+import  Movie from "./Movie"
 
 const sequelize = new Sequelize("mysql://root@localhost/test");
 
@@ -28,7 +22,6 @@ export default class User extends Model implements UserAttributes {
   public readonly created_at!: Date;
   public readonly updated_at!: Date;
 }
-
 
 User.init({
   name: {
@@ -51,5 +44,7 @@ User.init({
   sequelize, 
   createdAt: 'created_at',
   updatedAt: 'updated_at',
-  modelName: 'User'
+  modelName: 'user'
 });
+
+User.hasMany(Movie, { as: "movies", foreignKey: 'user_id'});
