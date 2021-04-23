@@ -1,23 +1,50 @@
 import { Sequelize } from "sequelize";
-import orm from "../infrastructure/db/orm/ormInterface";
+import UserRepository from "../domain/users/contracts/UserRepository";
 import userEntity from "../domain/users/userEntity";
 
 export default class User 
 {
-	orm:orm
+	orm:UserRepository
 
-	constructor(orm: orm) {
+	constructor(orm: UserRepository) {
 		this.orm = orm
 	}
 
-	create(data: Array<string>):object {
-			const entity = new userEntity(data);
+	async create(data: Array<string>):Promise<object> {
 
-			if (entity.getExistError()) {
-				return entity.getError();
-			}
+	 	const required: {[key: string]: boolean} = {
+	 		"email": true,
+	 		"name": true,
+	 		"username": true,
+	 		"password": true,
+	 	};
 
-			return this.orm.create(entity);
+		const entity = new userEntity(data, required);
+
+		if (entity.getExistError()) {
+			return entity.getError();
+		}
+
+		return await this.orm.create(entity);
+
+	}
+
+	async login(data: Array<string>):Promise<object> {
+
+	 	const required: {[key: string]: boolean} = {
+	 		"email": true,
+	 		"name": false,
+	 		"username": false,
+	 		"password": true,
+	 	};
+
+		const entity = new userEntity(data, required);
+
+		if (entity.getExistError()) {
+			return entity.getError();
+		}
+
+		return await this.orm.login(entity);
 
 	}
 }
