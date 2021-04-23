@@ -1,13 +1,11 @@
-import  usersControllers from '../../controllers/users/usersControllers';
+import  UserControllers from '../../controllers/users/UserControllers';
+import  MovieControllers from '../../controllers/movies/MovieControllers';
 
-const users = new usersControllers;
-// const strategy = new usersControllers;
+const users = new UserControllers;
 
 exports.assignRoutes = function (app: any) {
-    app.post('/users/create', users.create);
+    app.post('/auth/login', users.login);
 
-    // app.get('/strategy/:id', strategy.index);
-    // app.get('/strategy/', strategy.show);
-    // app.post('/strategy/create', strategy.create);
+    app.post('/users/create', users.create);
 
 }
